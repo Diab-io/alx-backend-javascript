@@ -1,1 +1,1 @@
-tasks relating to ES6 promises and async await
+Learning ES6 promises
