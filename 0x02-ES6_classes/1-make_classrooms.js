@@ -1,4 +1,5 @@
 import ClassRoom from './0-classroom';
+import HolbertonCourse from './2-hbtn_course';
 
 export default function initializeRooms() {
   const classArr = [];
@@ -9,3 +10,6 @@ export default function initializeRooms() {
 
   return classArr;
 }
+
+const c1 = new HolbertonCourse('ES6', 1, ["Bob", "Jane"])
+console.log(c1.name)
