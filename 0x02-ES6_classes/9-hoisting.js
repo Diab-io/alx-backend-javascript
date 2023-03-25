@@ -18,11 +18,11 @@ const class2020 = new HolbertonClass(2020, 'San Francisco');
 
 export default HolbertonClass;
 
-class StudentHolberton {
-  constructor(firstName, lastName, holbertonClass) {
+class StudentHolberton extends HolbertonClass {
+  constructor(firstName, lastName) {
+    super(HolbertonClass);
     this._firstName = firstName;
     this._lastName = lastName;
-    this._holbertonClass = holbertonClass;
   }
 
   get fullName() {
