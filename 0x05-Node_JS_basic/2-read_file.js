@@ -1,35 +1,38 @@
 /* eslint-disable guard-for-in */
 const fs = require('fs');
 
-function countStudents(filePath) {
-  if (!fs.existsSync(filePath)) {
+function countStudents(path) {
+  if (!fs.existsSync(path)) {
     throw new Error('Cannot load the database');
   }
-  try {
-    const data = fs.readFileSync(filePath, 'utf8');
-    const lines = data.trim().split('\n');
 
-    const headers = lines[0].split(',');
-    const fieldIndex = headers.indexOf('field');
-    const studentsByField = {};
+  const fileData = fs.readFileSync(path, 'utf8');
+  const line = fileData.split('\n').filter((item) => item !== '');
+  const numberOfStudents = line.length - 1;
 
-    for (let i = 1; i < lines.length; i += 1) {
-      const values = lines[i].split(',');
-      const field = values[fieldIndex].trim();
+  console.log(`Number of students: ${numberOfStudents}`);
 
-      if (!studentsByField[field]) {
-        studentsByField[field] = [];
+  const processedDataCount = {};
+  const firstNameByCourse = {};
+
+  line.map((row) => {
+    const fields = row.split(',');
+    const field = fields[3];
+    const firstName = fields[0];
+    if (field !== 'field') {
+      if (!processedDataCount[field]) {
+        processedDataCount[field] = 0;
+        firstNameByCourse[field] = [];
       }
-
-      studentsByField[field].push(values[0].trim());
+      processedDataCount[field] += 1;
+      firstNameByCourse[field].push(firstName);
     }
+    return 0;
+  });
 
-    console.log(`Number of students: ${lines.length - 1}`);
-    for (const field in studentsByField) {
-      console.log(`Number of students in ${field}: ${studentsByField[field].length}. List: ${studentsByField[field].join(', ')}`);
-    }
-  } catch (error) {
-    console.error(error.message);
+  for (const key in processedDataCount) {
+    const firstNameList = firstNameByCourse[key].join(', ');
+    console.log(`Number of students in ${key}: ${processedDataCount[key]}. List: ${firstNameList}`);
   }
 }
 
