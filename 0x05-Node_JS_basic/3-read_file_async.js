@@ -12,7 +12,7 @@ function countStudents(path) {
       const lines = data.trim().split('\n');
       const studentsByField = {};
 
-      for (let i = 1; i < lines.length; i+=1) {
+      for (let i = 1; i < lines.length; i += 1) {
         const [firstName, lastName, age, field] = lines[i].split(',');
 
         if (firstName && lastName && age && field) {
