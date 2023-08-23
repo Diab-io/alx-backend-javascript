@@ -6,30 +6,38 @@ function countStudents(path) {
     fs.readFile(path, 'utf8', (error, data) => {
       if (error) {
         reject(new Error('Cannot load the database'));
-        return;
       }
 
-      const lines = data.trim().split('\n');
-      const studentsByField = {};
+      if (data) {
+        const line = data.split('\n').filter((item) => item !== '');
+        const numberOfStudents = line.length - 1;
 
-      for (let i = 1; i < lines.length; i += 1) {
-        const [firstName, lastName, age, field] = lines[i].split(',');
+        console.log(`Number of students: ${numberOfStudents}`);
 
-        if (firstName && lastName && age && field) {
-          if (!studentsByField[field]) {
-            studentsByField[field] = [];
+        const processedDataCount = {};
+        const firstNameByCourse = {};
+
+        line.map((row) => {
+          const fields = row.split(',');
+          const field = fields[3];
+          const firstName = fields[0];
+          if (field !== 'field') {
+            if (!processedDataCount[field]) {
+              processedDataCount[field] = 0;
+              firstNameByCourse[field] = [];
+            }
+            processedDataCount[field] += 1;
+            firstNameByCourse[field].push(firstName);
           }
-          studentsByField[field].push(firstName);
+          return 0;
+        });
+
+        for (const key in processedDataCount) {
+          const firstNameList = firstNameByCourse[key].join(', ');
+          console.log(`Number of students in ${key}: ${processedDataCount[key]}. List: ${firstNameList}`);
         }
+        resolve();
       }
-
-      console.log(`Number of students: ${lines.length - 1}`);
-      for (const field in studentsByField) {
-        const studentsList = studentsByField[field].join(', ');
-        console.log(`Number of students in ${field}: ${studentsByField[field].length}. List: ${studentsList}`);
-      }
-
-      resolve();
     });
   });
 }
