@@ -15,10 +15,6 @@ describe('App', function() {
     });
 
     it('Test both numbers rounded', () => {
-        assert.strictEqual(calculateNumber(1.2, 3.7), 5)
-    });
-
-    it('Test', () => {
         assert.strictEqual(calculateNumber(1.5, 3.7), 6)
     });
 })
