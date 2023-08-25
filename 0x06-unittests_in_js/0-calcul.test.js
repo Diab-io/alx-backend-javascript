@@ -18,7 +18,11 @@ describe('App', function() {
         assert.strictEqual(calculateNumber(1.2, 3.7), 5);
     });
 
-    it('Test', () => {
+    it('Test for both rounding up', () => {
         assert.strictEqual(calculateNumber(1.5, 3.7), 6);
     });
+
+    it('Test numbers with trailing 6s', () => {
+        assert.strictEqual(calculateNumber(4.666666, 4.666666), 10);
+    })
 })
