@@ -6,11 +6,11 @@ describe('App', function() {
         assert.strictEqual(calculateNumber(1, 3), 4);
     });
 
-    it('Test for first number rounded', () => {
+    it('Test for first number rounded up', () => {
         assert.strictEqual(calculateNumber(2.5, 2), 5);
     });
 
-    it('Test second number rounded', () => {
+    it('Test second number rounded up', () => {
         assert.strictEqual(calculateNumber(1, 3.7), 5);
     });
 
@@ -21,6 +21,18 @@ describe('App', function() {
     it('Test for both rounding up', () => {
         assert.strictEqual(calculateNumber(1.5, 3.7), 6);
     });
+
+    it('Test for a rounding down', () => {
+        assert.strictEqual(calculateNumber(2.3, 4), 6)
+    })
+
+    it('Test for b rounding down', () => {
+        assert.strictEqual(calculateNumber(5, 4.3), 9)
+    })
+
+    it('Test for both numbers rounding down', () => {
+        assert.strictEqual(calculateNumber(2.3, 7.4), 9)
+    })
 
     it('Test numbers with trailing 6s', () => {
         assert.strictEqual(calculateNumber(4.666666, 4.666666), 10);
